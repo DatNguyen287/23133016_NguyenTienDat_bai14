@@ -16,10 +16,11 @@ public class MailUtilGmail {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         // 2. Đăng nhập vào tài khoản Gmail gửi thư
-        final String username = "tsttrebo@gmail.com";
-        final String password = "mznh tsqy aest ylcc"; // app password ở bước 1
+        final String username = System.getenv("EMAIL_USERNAME");
+        final String password = System.getenv("EMAIL_APP_PASSWORD");// app password ở bước 1
 
         Session session = Session.getInstance(props,
             new Authenticator() {
@@ -28,6 +29,8 @@ public class MailUtilGmail {
                     return new PasswordAuthentication(username, password);
                 }
             });
+        
+        session.setDebug(true); // Bật log để theo dõi lỗi nếu có
 
         // 3. Tạo email
         Message message = new MimeMessage(session);
