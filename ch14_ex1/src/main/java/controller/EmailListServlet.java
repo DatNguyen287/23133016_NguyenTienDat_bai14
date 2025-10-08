@@ -38,7 +38,7 @@ public class EmailListServlet extends HttpServlet {
             String email = request.getParameter("email");
 
             // Lưu vào đối tượng User
-            User user = new User(firstName, lastName, email);
+            User user = new User(email, firstName, lastName);
             UserDB.insert(user);  // chèn vào DB giả hoặc thực
             request.setAttribute("user", user);
 
